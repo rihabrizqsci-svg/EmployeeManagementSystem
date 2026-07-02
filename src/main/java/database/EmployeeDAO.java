@@ -3,6 +3,7 @@ package database;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.ResultSet;
 
 import models.Employee;
 
@@ -163,6 +164,115 @@ public java.sql.ResultSet getEmployees() {
 
     return null;
 }
+public ResultSet getEmployeesByDepartment(String department) {
 
+    String sql = "SELECT * FROM Employees WHERE department = ?";
 
+    try {
+
+        Connection conn = DBConnection.getConnection();
+
+        PreparedStatement pst = conn.prepareStatement(sql);
+
+        pst.setString(1, department);
+
+        return pst.executeQuery();
+
+    } catch (SQLException e) {
+
+        e.printStackTrace();
+    }
+
+    return null;
+}
+public ResultSet getEmployeesBySalary(double salary) {
+
+    String sql = "SELECT * FROM Employees WHERE salary >= ?";
+
+    try {
+
+        Connection conn = DBConnection.getConnection();
+
+        PreparedStatement pst = conn.prepareStatement(sql);
+
+        pst.setDouble(1, salary);
+
+        return pst.executeQuery();
+
+    } catch (SQLException e) {
+
+        e.printStackTrace();
+    }
+
+    return null;
+}
+public int getEmployeeCount() {
+
+    String sql = "SELECT COUNT(*) FROM Employees";
+
+    try {
+
+        Connection conn = DBConnection.getConnection();
+
+        PreparedStatement pst = conn.prepareStatement(sql);
+
+        ResultSet rs = pst.executeQuery();
+
+        if (rs.next()) {
+            return rs.getInt(1);
+        }
+
+    } catch (SQLException e) {
+
+        e.printStackTrace();
+    }
+
+    return 0;
+}
+public int getDepartmentCount() {
+
+    String sql = "SELECT COUNT(DISTINCT department) FROM Employees";
+
+    try {
+
+        Connection conn = DBConnection.getConnection();
+
+        PreparedStatement pst = conn.prepareStatement(sql);
+
+        ResultSet rs = pst.executeQuery();
+
+        if (rs.next()) {
+            return rs.getInt(1);
+        }
+
+    } catch (SQLException e) {
+
+        e.printStackTrace();
+    }
+
+    return 0;
+}
+public double getTotalSalary() {
+
+    String sql = "SELECT SUM(salary) FROM Employees";
+
+    try {
+
+        Connection conn = DBConnection.getConnection();
+
+        PreparedStatement pst = conn.prepareStatement(sql);
+
+        ResultSet rs = pst.executeQuery();
+
+        if (rs.next()) {
+            return rs.getDouble(1);
+        }
+
+    } catch (SQLException e) {
+
+        e.printStackTrace();
+    }
+
+    return 0;
+}
 }

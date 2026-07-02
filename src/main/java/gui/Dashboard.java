@@ -20,6 +20,8 @@ public class Dashboard extends javax.swing.JFrame {
     public Dashboard() {
     initComponents();
     loadEmployees();
+    loadStatistics(); 
+    getContentPane().setBackground(new java.awt.Color(230, 240, 255));
 }
     
 
@@ -39,22 +41,35 @@ public class Dashboard extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEmployees = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabelEmployees = new javax.swing.JLabel();
+        lblEmployees = new javax.swing.JLabel();
+        jLabelDepartments = new javax.swing.JLabel();
+        lblDepartments = new javax.swing.JLabel();
+        jLabelSalary = new javax.swing.JLabel();
+        lblSalary = new javax.swing.JLabel();
+        btnReports = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Add Employee");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/add_user_male_30px.png"))); // NOI18N
+        jButton1.setText("اضافة");
         jButton1.addActionListener(this::jButton1ActionPerformed);
 
-        jButton2.setText("View Employees");
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/under_computer_30px.png"))); // NOI18N
+        jButton2.setText("عرض");
         jButton2.addActionListener(this::jButton2ActionPerformed);
 
-        jButton3.setText("Update Employee");
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/renew_subscription_24px.png"))); // NOI18N
+        jButton3.setText("تعديل");
         jButton3.addActionListener(this::jButton3ActionPerformed);
 
-        jButton4.setText("Delete Employee");
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delete_24px.png"))); // NOI18N
+        jButton4.setText("حذف");
         jButton4.addActionListener(this::jButton4ActionPerformed);
 
-        jButton5.setText("Logout");
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/exercise_30px.png"))); // NOI18N
+        jButton5.setText("خروج");
         jButton5.addActionListener(this::jButton5ActionPerformed);
 
         tblEmployees.setModel(new javax.swing.table.DefaultTableModel(
@@ -70,39 +85,105 @@ public class Dashboard extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblEmployees);
 
+        jLabelEmployees.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabelEmployees.setForeground(new java.awt.Color(255, 153, 102));
+        jLabelEmployees.setText("عدد الموظفين");
+
+        lblEmployees.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblEmployees.setForeground(new java.awt.Color(255, 153, 102));
+        lblEmployees.setText("0");
+
+        jLabelDepartments.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabelDepartments.setForeground(new java.awt.Color(255, 153, 102));
+        jLabelDepartments.setText("عدد الاقسام");
+
+        lblDepartments.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblDepartments.setForeground(new java.awt.Color(255, 153, 102));
+        lblDepartments.setText("0");
+
+        jLabelSalary.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabelSalary.setForeground(new java.awt.Color(255, 153, 51));
+        jLabelSalary.setText("اجمالي الرواتب");
+
+        lblSalary.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblSalary.setForeground(new java.awt.Color(255, 153, 102));
+        lblSalary.setText("0");
+
+        btnReports.setIcon(new javax.swing.ImageIcon(getClass().getResource("/key_24px.png"))); // NOI18N
+        btnReports.setText("التقارير");
+        btnReports.addActionListener(this::btnReportsActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addComponent(jScrollPane1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnReports, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(61, 61, 61)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblDepartments, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelDepartments, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(56, 56, 56)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabelEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addComponent(jLabel1))
+                    .addComponent(lblEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addGap(18, 18, 18)
-                .addComponent(jButton3)
-                .addGap(18, 18, 18)
-                .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton5)
-                .addContainerGap(75, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addComponent(jLabel1)
+                                .addGap(28, 28, 28))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabelSalary)
+                                    .addComponent(jLabelDepartments)
+                                    .addComponent(jLabelEmployees))
+                                .addGap(18, 18, 18)))
+                        .addComponent(lblSalary))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblEmployees)
+                            .addComponent(lblDepartments))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnReports, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         pack();
@@ -212,6 +293,12 @@ loadEmployees();        // TODO add your handling code here:
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void btnReportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportsActionPerformed
+            ReportsForm form = new ReportsForm();
+            form.setVisible(true); 
+            this.dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_btnReportsActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -263,14 +350,33 @@ private void loadEmployees() {
 
         e.printStackTrace();
     }
+    }
+    private void loadStatistics() {
+
+    EmployeeDAO dao = new EmployeeDAO();
+
+    lblEmployees.setText(String.valueOf(dao.getEmployeeCount()));
+
+    lblDepartments.setText(String.valueOf(dao.getDepartmentCount()));
+
+    lblSalary.setText(String.valueOf(dao.getTotalSalary()));
 }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnReports;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelDepartments;
+    private javax.swing.JLabel jLabelEmployees;
+    private javax.swing.JLabel jLabelSalary;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblDepartments;
+    private javax.swing.JLabel lblEmployees;
+    private javax.swing.JLabel lblSalary;
     private javax.swing.JTable tblEmployees;
     // End of variables declaration//GEN-END:variables
 }
