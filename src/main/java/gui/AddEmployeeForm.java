@@ -140,36 +140,62 @@ public class AddEmployeeForm extends javax.swing.JFrame {
  * @param evt Button click event
  */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-int id = Integer.parseInt(txtId.getText());
 
-String username = txtUsername.getText();
+         try {
+            int id = Integer.parseInt(txtId.getText());
 
-String password =
-        String.valueOf(txtPassword.getPassword());
+        String username = txtUsername.getText();
 
-String department = txtDepartment.getText();
+        String password = String.valueOf(txtPassword.getPassword());
 
-double salary =
-        Double.parseDouble(txtSalary.getText());
+        String department = txtDepartment.getText();
 
-Employee emp = new Employee(
-        id,
-        username,
-        password,
-        department,
-        salary
-);
+        double salary = Double.parseDouble(txtSalary.getText());
 
-EmployeeDAO dao = new EmployeeDAO();
+        if (username.isEmpty() || password.isEmpty() || department.isEmpty()) {
 
-dao.addEmployee(emp);
+            JOptionPane.showMessageDialog(
+                    this,
+                    "الرجاء تعبئة جميع الحقول."
+            );
+            return;
+        }
 
-JOptionPane.showMessageDialog(
-        this,
-        "Employee Added Successfully!"
-);        // TODO add your handling code here:
+        Employee emp = new Employee(
+                id,
+                username,
+                password,
+                department,
+                salary
+        );
+
+        EmployeeDAO dao = new EmployeeDAO();
+
+        dao.addEmployee(emp);
+
+        JOptionPane.showMessageDialog(
+                this,
+                "تمت إضافة الموظف بنجاح."
+        );
+
+        dispose();
+
+    } catch (NumberFormatException e) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "رقم الموظف والراتب يجب أن يكونا أرقامًا صحيحة."
+        );
+
+    } catch (Exception e) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "حدث خطأ: " + e.getMessage()
+        );  // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
-/**
+    }
+         /**
  * Returns the user to Dashboard form.
  *
  * @param evt button click event

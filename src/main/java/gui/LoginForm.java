@@ -1,6 +1,7 @@
 package gui;
 import java.util.logging.Logger;
 import database.EmployeeDAO;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -111,25 +112,53 @@ public class LoginForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-String username = txtUsername.getText();
-String password = String.valueOf(txtPassword.getPassword());
 
-EmployeeDAO dao = new EmployeeDAO();
+       try {
 
-if (dao.login(username, password)) {
+    String username = txtUsername.getText();
 
-    System.out.println("Login Successful");
+    String password =
+            String.valueOf(txtPassword.getPassword());
 
-    Dashboard dashboard = new Dashboard();
-    dashboard.setVisible(true);
+    if (username.isEmpty() || password.isEmpty()) {
 
-    this.dispose();
+        JOptionPane.showMessageDialog(
+                this,
+                "الرجاء إدخال اسم المستخدم وكلمة المرور."
+        );
 
-} else {
+        return;
+    }
 
-    javax.swing.JOptionPane.showMessageDialog(
+    EmployeeDAO dao = new EmployeeDAO();
+
+    if (dao.login(username, password)) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "تم تسجيل الدخول بنجاح."
+        );
+
+        Dashboard dashboard = new Dashboard();
+
+        dashboard.setVisible(true);
+
+        this.dispose();
+
+    } else {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "اسم المستخدم أو كلمة المرور غير صحيحة."
+        );
+
+    }
+
+} catch (Exception e) {
+
+    JOptionPane.showMessageDialog(
             this,
-            "Invalid Username or Password"
+            "حدث خطأ: " + e.getMessage()
     );
 }
     }//GEN-LAST:event_btnLoginActionPerformed

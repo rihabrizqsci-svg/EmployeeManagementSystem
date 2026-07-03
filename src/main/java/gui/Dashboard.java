@@ -210,10 +210,11 @@ public class Dashboard extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnReports, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
-                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -250,30 +251,56 @@ public class Dashboard extends javax.swing.JFrame {
  * @param evt button click event
  */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-int selectedRow = tblEmployees.getSelectedRow();
 
-if (selectedRow == -1) {
+    try {
 
-    javax.swing.JOptionPane.showMessageDialog(
-            this,
-            "Please select an employee first!"
-    );
+        int selectedRow = tblEmployees.getSelectedRow();
 
-    return;
-}
+        if (selectedRow == -1) {
 
-int id = (int) tblEmployees.getValueAt(selectedRow, 0);
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "الرجاء اختيار موظف أولاً."
+            );
 
-EmployeeDAO dao = new EmployeeDAO();
+            return;
+        }
 
-dao.deleteEmployee(id);
+        int choice = javax.swing.JOptionPane.showConfirmDialog(
+                this,
+                "هل أنت متأكد من حذف الموظف؟",
+                "تأكيد الحذف",
+                javax.swing.JOptionPane.YES_NO_OPTION
+        );
 
-javax.swing.JOptionPane.showMessageDialog(
-        this,
-        "Employee Deleted Successfully!"
-);
+        if (choice != javax.swing.JOptionPane.YES_OPTION) {
 
-loadEmployees();        // TODO add your handling code here:
+            return;
+        }
+
+        int id = (int) tblEmployees.getValueAt(selectedRow, 0);
+
+        EmployeeDAO dao = new EmployeeDAO();
+
+        dao.deleteEmployee(id);
+
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "تم حذف الموظف بنجاح."
+        );
+
+        loadEmployees();
+
+    } catch (Exception e) {
+
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "حدث خطأ: " + e.getMessage()
+        );
+
+    }
+
+                 
     }//GEN-LAST:event_jButton4ActionPerformed
 /**
  * Updates salary of selected employee.
@@ -281,38 +308,63 @@ loadEmployees();        // TODO add your handling code here:
  * @param evt button click event
  */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-int selectedRow = tblEmployees.getSelectedRow();
 
-if (selectedRow == -1) {
+    try {
 
-    javax.swing.JOptionPane.showMessageDialog(
-            this,
-            "Please select an employee!"
-    );
+        int selectedRow = tblEmployees.getSelectedRow();
 
-    return;
-}
+        if (selectedRow == -1) {
 
-int id = (int) tblEmployees.getValueAt(selectedRow, 0);
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "الرجاء اختيار موظف أولاً."
+            );
 
-String salaryText =
-        javax.swing.JOptionPane.showInputDialog(
+            return;
+        }
+
+        int id = (int) tblEmployees.getValueAt(selectedRow, 0);
+
+        String salaryText = javax.swing.JOptionPane.showInputDialog(
                 this,
-                "Enter New Salary:"
+                "أدخل الراتب الجديد:"
         );
 
-double newSalary = Double.parseDouble(salaryText);
+        if (salaryText == null || salaryText.isEmpty()) {
 
-EmployeeDAO dao = new EmployeeDAO();
+            return;
+        }
 
-dao.updateSalary(id, newSalary);
+        double newSalary = Double.parseDouble(salaryText);
 
-javax.swing.JOptionPane.showMessageDialog(
-        this,
-        "Salary Updated Successfully!"
-);
+        EmployeeDAO dao = new EmployeeDAO();
 
-loadEmployees();        // TODO add your handling code here:
+        dao.updateSalary(id, newSalary);
+
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "تم تحديث الراتب بنجاح."
+        );
+
+        loadEmployees();
+
+    } catch (NumberFormatException e) {
+
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "الراتب يجب أن يكون رقمًا صحيحًا."
+        );
+
+    } catch (Exception e) {
+
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "حدث خطأ: " + e.getMessage()
+        );
+
+    
+}
+            // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 /**
  * Refreshes employee table.
