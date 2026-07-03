@@ -206,6 +206,27 @@ public ResultSet getEmployeesBySalary(double salary) {
 
     return null;
 }
+public ResultSet searchEmployee(String username) {
+
+    String sql = "SELECT * FROM Employees WHERE username LIKE ?";
+
+    try {
+
+        Connection conn = DBConnection.getConnection();
+
+        PreparedStatement pst = conn.prepareStatement(sql);
+
+        pst.setString(1, "%" + username + "%");
+
+        return pst.executeQuery();
+
+    } catch (SQLException e) {
+
+        e.printStackTrace();
+    }
+
+    return null;
+}
 public int getEmployeeCount() {
 
     String sql = "SELECT COUNT(*) FROM Employees";

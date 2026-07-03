@@ -22,6 +22,7 @@ public class ReportsForm extends javax.swing.JFrame {
      */
     public ReportsForm() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

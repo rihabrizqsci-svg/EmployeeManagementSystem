@@ -19,6 +19,7 @@ public class AddEmployeeForm extends javax.swing.JFrame {
      */
     public AddEmployeeForm() {
         initComponents();
+        setLocationRelativeTo(null);
         getContentPane().setBackground(new java.awt.Color(230, 240, 255));
     }
 
