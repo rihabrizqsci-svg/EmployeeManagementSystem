@@ -6,7 +6,14 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 
 import models.Employee;
-
+/**
+ * Represents an employee in the Employee Management System.
+ *
+ * This class stores employee information such as ID,
+ * username, password, department, and salary.
+ *
+ * @author hp
+ */
 public class EmployeeDAO {
 
     // Insert Employee

@@ -7,6 +7,10 @@ import database.EmployeeDAO;
 import models.Employee;
 import javax.swing.JOptionPane;
 /**
+ * Represents an employee in the Employee Management System.
+ *
+ * This class stores employee information such as ID,
+ * username, password, department, and salary.
  *
  * @author hp
  */
